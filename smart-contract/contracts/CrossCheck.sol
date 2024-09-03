@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract ExtendedAlphaVerify is ERC721URIStorage {
+contract CrossCheck is ERC721URIStorage {
     using Counters for Counters.Counter;
     using Strings for uint256;
 
@@ -29,9 +29,19 @@ contract ExtendedAlphaVerify is ERC721URIStorage {
     event AccessGranted(uint256 indexed tokenId, bytes32 accessToken, uint256 expirationTime);
     event CustodyTransferred(uint256 indexed tokenId, address indexed from, address indexed to);
 
-    constructor() ERC721("ExtendedAlphaVerify", "EAV") {}
+    constructor() ERC721("CrossCheck", "XCHK") {}
 
-    function mintAsset(AssetType assetType, string memory assetId, string memory uri) external {
+    function generateRandom4DigitNumber() private view returns (uint256) {
+        uint256 random = uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender, _tokenIds.current()))) % 9000 + 1000;
+        return random;
+    }
+
+    function mintAsset(AssetType assetType, string memory uri) external {
+        uint256 newAssetId = generateRandom4DigitNumber();
+        while (_isAssetIdTaken(newAssetId)) {
+            newAssetId = generateRandom4DigitNumber();
+        }
+
         _tokenIds.increment();
         uint256 newTokenId = _tokenIds.current();
 
@@ -40,12 +50,21 @@ contract ExtendedAlphaVerify is ERC721URIStorage {
 
         Asset storage newAsset = _assets[newTokenId];
         newAsset.assetType = assetType;
-        newAsset.assetId = assetId;
+        newAsset.assetId = Strings.toString(newAssetId);  // Convert to string
         newAsset.custodyChain.push(msg.sender);
 
         _userAssets[msg.sender][assetType].push(newTokenId);
 
-        emit AssetMinted(newTokenId, msg.sender, assetType, assetId);
+        emit AssetMinted(newTokenId, msg.sender, assetType, newAsset.assetId);
+    }
+
+    function _isAssetIdTaken(uint256 assetId) private view returns (bool) {
+        for (uint256 i = 1; i <= _tokenIds.current(); i++) {
+            if (keccak256(bytes(_assets[i].assetId)) == keccak256(bytes(Strings.toString(assetId)))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function generateAccessToken(uint256 tokenId, uint256 duration) external {
