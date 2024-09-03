@@ -77,7 +77,7 @@ const ManufacturerDashboard = () => {
         />
         <button
           onClick={mintStamp}
-          className="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600"
+          className="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600"
         >
           Mint Digital Stamp
         </button>

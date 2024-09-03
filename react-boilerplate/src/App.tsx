@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './components/GetStarted';
 import VerifyAsset from './pages/VerifyAsset';
 import Notification from './components/Notification';
 
@@ -10,7 +10,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <div className="min-h-screen bg-blue-800 w-screen">
+      <div className="min-h-screen bg-teal-600 w-screen">
         {notification && <Notification message={notification.message} type={notification.type} />}
         <Routes>
           <Route path="/" element={<LandingPage />} />
