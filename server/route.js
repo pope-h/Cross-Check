@@ -140,7 +140,7 @@ app.post("/add-student", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Welcome to AlphaVerify Application Programming Interface");
+  res.send("Welcome to Cross Check Application Programming Interface");
 });
 
 app.listen(port, () => {
