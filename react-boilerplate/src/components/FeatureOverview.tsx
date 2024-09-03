@@ -36,7 +36,7 @@ const features = [
 
 const FeatureOverview = () => {
   return (
-    <section className="py-44 bg-gradient-to-b from-background to-background/80">
+    <section id="#FEATURE" className="py-44 bg-gradient-to-b from-background to-background/80">
       <div className="container mx-auto px-4">
         <h2 className="text-6xl font-bold text-center mb-8">Comprehensive Feature Set</h2>
         <p className="text-xl text-center text-muted-foreground mb-12 max-w-2xl mx-auto">

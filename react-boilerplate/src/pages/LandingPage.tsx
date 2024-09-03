@@ -6,6 +6,8 @@ import FeatureOverview from "../components/FeatureOverview";
 import Modal from "../components/Modal";
 import GetStarted from "../components/GetStarted";
 import HeroImage from "../../public/hero-image.jpg"
+import Footer from "../components/Footer";
+import NavBar from "../components/NavBar";
 
 const LandingPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,6 +17,7 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="text-center">
+      <NavBar />
       <div className="bg-background container mb-28 pt-16 mx-auto flex items-center justify-between">
         <div className="mx-10">
           <div className="grid grid-cols-1 md:grid-cols-5 items-center gap-12">
@@ -30,12 +33,12 @@ const LandingPage: React.FC = () => {
               <div className="flex space-x-4">
                 <button
                   onClick={openModal}
-                  className="flex items-center rounded-full border border-white p-5 bg-green-500"
+                  className="flex items-center rounded-full border border-white p-5 bg-green-500 hover:border-green-800 hover:text-green-800 hover:bg-white"
                 >
                   Get Started
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </button>
-                <button className="flex items-center px-8 rounded-full hover:border border-green-900 p-5 bg-white text-green-800">
+                <button className="flex items-center px-8 rounded-full hover:border-white hover:bg-green-500 hover:text-white border-green-900 p-5 bg-white text-green-800">
                   Learn more
                 </button>
               </div>
@@ -61,6 +64,7 @@ const LandingPage: React.FC = () => {
           throw new Error("Function not implemented.");
         } } /> {/* Your Dashboard component */}
       </Modal>
+      <Footer />
     </div>
   );
 };

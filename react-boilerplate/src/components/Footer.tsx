@@ -3,10 +3,10 @@ import { Link } from "react-router-dom"
 // import Link from "next/link"
 
 const socialLinks = [
-  { name: "Facebook", icon: Facebook, href: "https://facebook.com" },
-  { name: "Twitter", icon: Twitter, href: "https://twitter.com" },
-  { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com" },
-  { name: "Instagram", icon: Instagram, href: "https://instagram.com" },
+  { name: "Facebook", icon: Facebook, href: "https://facebook.com/druxamb" },
+  { name: "Twitter", icon: Twitter, href: "https://twitter.com/druxamb" },
+  { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/in/druxamb" },
+  { name: "Instagram", icon: Instagram, href: "https://instagram.com/druxamb" },
 ]
 
 const contactInfo = [
@@ -17,11 +17,11 @@ const contactInfo = [
 
 export default function Footer() {
   return (
-    <footer className="mt-44 text-primary-foreground">
+    <footer className="mt-44 text-primary-foreground bg-teal-700">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-start">
           <div>
-            <h2 className="text-2xl font-bold mb-4">Alph Verify</h2>
+            <h2 className="text-2xl font-bold mb-4">crossCheck</h2>
             <p className="mb-4">Securing academic achievements on the blockchain, one certificate at a time.</p>
             <div className="flex space-x-4">
               {socialLinks.map((link) => (
@@ -63,7 +63,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-primary-foreground/10 text-center">
-          <p>&copy; {new Date().getFullYear()} Alpha Verify. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} crossCheck. All rights reserved.</p>
         </div>
       </div>
     </footer>

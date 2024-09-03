@@ -36,7 +36,7 @@ const App: React.FC = () => {
           <Route path="/verify/:assetId" element={<VerifyAsset />} />
 
           <Route
-            path="/userdashboard"
+            path="/dashboard"
             element={
               <UserDashboard
                 account="dummyAccount"
