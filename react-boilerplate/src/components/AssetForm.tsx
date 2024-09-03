@@ -24,12 +24,12 @@ const AssetForm: React.FC<AssetFormProps> = ({ assetType, onSubmit }) => {
           value={assetId}
           placeholder='Asset ID'
           onChange={(e) => setAssetId(e.target.value)}
-          className="mt-1 p-2 bg-blue-700 placeholder:text-slate-300 block w-full rounded-md outline-none shadow-sm"
+          className="mt-1 p-2 bg-green-700 placeholder:text-green-300 block w-full rounded-md outline-none shadow-sm"
           required
         />
       </div>
       {/* Add more fields based on asset type */}
-      <button type="submit" className="mt-4 p-2 w-full border border-blue-500">Submit {assetType}</button>
+      <button type="submit" className="mt-4 p-2 w-full border border-green-500">Submit {assetType}</button>
     </form>
   );
 };

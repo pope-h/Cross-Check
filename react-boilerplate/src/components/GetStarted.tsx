@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import AssetList from '../components/AssetList';
-import AssetForm from '../components/AssetForm';
-import Notification from '../components/Notification';
+import AssetList from './AssetList';
+import AssetForm from './AssetForm';
+import Notification from './Notification';
 
 interface DashboardProps {
   account: string;
@@ -9,8 +9,9 @@ interface DashboardProps {
   setNotification: (notification: { message: string; type: 'error' | 'success' }) => void;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ account, contract, setNotification }) => {
+const GetStarted: React.FC<DashboardProps> = ({ account, contract, setNotification }) => {
   const [assets, setAssets] = useState<Array<{ assetType: string; assetId: string; approvalStatus?: boolean }>>([]);
+  const [activeForm, setActiveForm] = useState<string | null>(null);
 
   useEffect(() => {
     if (account) {
@@ -68,16 +69,47 @@ const Dashboard: React.FC<DashboardProps> = ({ account, contract, setNotificatio
   };
 
   return (
-    <div className="container mx-auto mt-16 max-w-sm md:max-w-md lg:max-w-lg m-auto border-2 border-blue-900 p-2 rounded shadow-md">
+    <div className="container mx-auto max-w-sm md:max-w-md lg:max-w-lg m-auto border-2 border-green-900 bg-green-800 p-2 rounded shadow-md">
       <h1 className="text-3xl font-bold text-center">Your Assets</h1>
       <AssetList assets={assets} onMint={handleMint} />
-      <h2 className="font-semibold text-xl">add new asset</h2>
-        <AssetForm assetType="Certificate" onSubmit={handleAssetSubmit} />
-      <AssetForm assetType="Product" onSubmit={handleAssetSubmit} />
-      <AssetForm assetType="Land" onSubmit={handleAssetSubmit} />
-      <AssetForm assetType="Vehicle" onSubmit={handleAssetSubmit} />
+
+      {/* Buttons to select the asset form */}
+      <div className="text-center mb-4">
+        <button
+          onClick={() => setActiveForm('Certificate')}
+          className={`px-4 py-2 m-2 rounded ${activeForm === 'Certificate' ? 'bg-green-500 text-white' : 'bg-green-600'}`}
+        >
+          Certificate
+        </button>
+        <button
+          onClick={() => setActiveForm('Product')}
+          className={`px-4 py-2 m-2 rounded ${activeForm === 'Product' ? 'bg-green-500 text-white' : 'bg-green-600'}`}
+        >
+          Product
+        </button>
+        <button
+          onClick={() => setActiveForm('Land')}
+          className={`px-4 py-2 m-2 rounded ${activeForm === 'Land' ? 'bg-green-500 text-white' : 'bg-green-600'}`}
+        >
+          Land
+        </button>
+        <button
+          onClick={() => setActiveForm('Vehicle')}
+          className={`px-4 py-2 m-2 rounded ${activeForm === 'Vehicle' ? 'bg-green-500 text-white' : 'bg-green-600'}`}
+        >
+          Vehicle
+        </button>
+      </div>
+
+      {/* Render the active asset form */}
+      {activeForm && (
+        <div>
+          <h2 className="font-semibold text-xl mb-4">add new asset - {activeForm}</h2>
+          <AssetForm assetType={activeForm} onSubmit={handleAssetSubmit} />
+        </div>
+      )}
     </div>
   );
 };
 
-export default Dashboard;
+export default GetStarted;
