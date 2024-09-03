@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AssetList from '../components/AssetList';
 import AssetForm from '../components/AssetForm';
-import Notification from '../components/Notification';
+// import Notification from '../components/Notification';
 
 interface DashboardProps {
   account: string;

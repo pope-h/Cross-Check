@@ -94,5 +94,3 @@ This means that assets will be pre-fixed with `./`, you can learn more about it 
 ## 👀 Want to learn more?
 
 Feel free to check [React documentation](https://react.dev/) or [Vite Documentation](https://vitejs.dev/guide/).
-
-A new project psuh
