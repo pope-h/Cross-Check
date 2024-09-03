@@ -1,9 +1,23 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+// import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import HowItWorks from "../components/HowItWorks";
+import FeatureOverview from "../components/FeatureOverview";
+import Modal from "../components/Modal";
+import Dashboard from "./Dashboard";
+
+const [isModalVisible, setIsModalVisible] = useState(false);
+
+const handleGetStartedClick = () => {
+  setIsModalVisible(true);
+};
+
+const handleCloseModal = () => {
+  setIsModalVisible(false);
+};
 
 const LandingPage: React.FC = () => (
-  <div className="text-center mt-16">
+  <div className="text-center">
     <div className="bg-background container mb-28 pt-16 mx-auto flex items-center justify-between">
       <div className="mx-10">
         <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-12">
@@ -17,18 +31,21 @@ const LandingPage: React.FC = () => (
               accomplishments.
             </p>
             <div className="flex space-x-4">
-              <Link to="/dashboard">
-                <button className="flex items-center rounded-full border border-white p-5 bg-black">
+              {/* <Link to="/dashboard">
+              </Link> */}
+                <button
+                  className="flex items-center rounded-full border border-white p-5 bg-blue-700"
+                  onClick={handleGetStartedClick}
+                >
                   Get Started
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </button>
-              </Link>
-              <button className="flex items-center px-8 rounded-full  hover:border border-black p-5 bg-white text-black">
+              <button className="flex items-center px-8 rounded-full hover:border border-blue-900 p-5 bg-white text-blue-800">
                 Learn more
               </button>
             </div>
           </div>
-          <div className="border h-[600px]">
+          <div className="border-4 border-blue-700 h-[600px]">
             {/* <Image
                 src="/assets/metaverse.jpg"
                 alt="Graduate with blockchain certificate"
@@ -38,8 +55,14 @@ const LandingPage: React.FC = () => (
               /> */}
           </div>
         </div>
+         {/* Modal Component */}
+      <Modal isVisible={isModalVisible} onClose={handleCloseModal}>
+        <Dashboard />
+      </Modal>
       </div>
     </div>
+    <HowItWorks />
+    <FeatureOverview />
   </div>
 );
 

@@ -68,7 +68,7 @@ const Dashboard: React.FC<DashboardProps> = ({ account, contract, setNotificatio
   };
 
   return (
-    <div className="container mx-auto mt-16 max-w-sm md:max-w-md lg:max-w-lg m-auto border-2 border-blue-900 p-2 rounded shadow-md">
+    <div className="container mx-auto max-w-sm md:max-w-md lg:max-w-lg m-auto border-2 border-blue-900 p-2 rounded shadow-md">
       <h1 className="text-3xl font-bold text-center">Your Assets</h1>
       <AssetList assets={assets} onMint={handleMint} />
       <h2 className="font-semibold text-xl">add new asset</h2>

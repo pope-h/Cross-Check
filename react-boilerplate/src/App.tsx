@@ -10,7 +10,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <div className="min-h-screen w-screen bg-blue-800 p-8">
+      <div className="min-h-screen bg-blue-800 w-screen">
         {notification && <Notification message={notification.message} type={notification.type} />}
         <Routes>
           <Route path="/" element={<LandingPage />} />
