@@ -68,10 +68,10 @@ const Dashboard: React.FC<DashboardProps> = ({ account, contract, setNotificatio
   };
 
   return (
-    <div className="container mx-auto mt-16">
-      <h1 className="text-3xl font-bold mb-8">Your Assets</h1>
+    <div className="container mx-auto mt-16 max-w-sm md:max-w-md lg:max-w-lg m-auto border-2 border-blue-900 p-2 rounded shadow-md">
+      <h1 className="text-3xl font-bold text-center">Your Assets</h1>
       <AssetList assets={assets} onMint={handleMint} />
-      <h2 className="text-2xl font-semibold mt-12">Add New Asset</h2>
+      <h2 className="font-semibold text-xl">add new asset</h2>
         <AssetForm assetType="Certificate" onSubmit={handleAssetSubmit} />
       <AssetForm assetType="Product" onSubmit={handleAssetSubmit} />
       <AssetForm assetType="Land" onSubmit={handleAssetSubmit} />

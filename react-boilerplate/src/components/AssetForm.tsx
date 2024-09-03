@@ -15,20 +15,21 @@ const AssetForm: React.FC<AssetFormProps> = ({ assetType, onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="assetId">Asset ID</label>
+    <form onSubmit={handleSubmit} className=''>
+      <div className=''>
+        {/* <label htmlFor="assetId">Asset ID</label> */}
         <input
           id="assetId"
           type="text"
           value={assetId}
+          placeholder='Asset ID'
           onChange={(e) => setAssetId(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300"
+          className="mt-1 p-2 bg-blue-700 placeholder:text-slate-300 block w-full rounded-md outline-none shadow-sm"
           required
         />
       </div>
       {/* Add more fields based on asset type */}
-      <button type="submit" className="mt-4">Submit {assetType}</button>
+      <button type="submit" className="mt-4 p-2 w-full border border-blue-500">Submit {assetType}</button>
     </form>
   );
 };
