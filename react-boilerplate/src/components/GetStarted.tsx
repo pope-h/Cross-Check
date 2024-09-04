@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import AssetList from './AssetList';
-import AssetForm from './AssetForm';
-import Notification from './Notification';
-import { div } from 'framer-motion/client';
 import UserDashboard from '../pages/UserDashboard';
 
 interface DashboardProps {
