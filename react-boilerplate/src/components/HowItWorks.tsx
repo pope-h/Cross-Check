@@ -14,12 +14,12 @@ const steps = [
   {
     icon: Cpu,
     title: "Mint NFT",
-    description: "Your verified certificate is transformed into a unique NFT on the blockchain, ensuring its authenticity and immutability."
+    description: " Generate a unique digital identity and access token for your asset"
   },
   {
     icon: Share2,
     title: "Share & Verify",
-    description: "Easily share your NFT certificate with employers or institutions. They can instantly verify its authenticity on the blockchain."
+    description: "Transfer custody of the asset as needed, with every transaction recorded on the blockchain."
   }
 ];
 

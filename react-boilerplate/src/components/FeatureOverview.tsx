@@ -5,32 +5,32 @@ const features = [
     {
       icon: Wallet,
       title: "Wallet Integration",
-      description: "Securely connect your digital wallet to manage your academic NFTs with ease."
+      description: "Securely connect your digital wallet to manage your NFT assets with ease."
     },
     {
       icon: Camera,
       title: "NFT Minting",
-      description: "Transform your academic certificates into unique, verifiable NFTs on the blockchain."
+      description: "Transform your assets into unique, verifiable NFTs on the blockchain."
     },
     {
       icon: Lock,
       title: "Encrypted Storage",
-      description: "Your certificates are encrypted and stored securely on decentralized networks."
+      description: "Your assets are encrypted and stored securely on decentralized networks."
     },
     {
       icon: Share2,
       title: "Easy Sharing",
-      description: "Share your credentials with potential employers or institutions with a single click."
+      description: " Transfer custody of the asset as needed, with every transaction recorded on the blockchain."
     },
     {
       icon: Search,
       title: "Instant Verification",
-      description: "Allow third parties to verify your credentials instantly without intermediaries."
+      description: "Allow third parties to verify your assets instantly without intermediaries."
     },
     {
       icon: BarChart,
       title: "Achievement Tracking",
-      description: "Monitor your academic progress and showcase your growing list of achievements."
+      description: "Monitor your Nft assets progress and showcase your growing list of achievements."
     }
   ]
 
@@ -40,7 +40,7 @@ const FeatureOverview = () => {
       <div className="container mx-auto px-4">
         <h2 className="text-6xl font-bold text-center mb-8">Comprehensive Feature Set</h2>
         <p className="text-xl text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          Our platform offers a robust set of features designed to secure, manage, and share your academic achievements with ease.
+          Our platform offers a robust set of features designed to secure, manage, and share your assets achievements with ease.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {features.map((feature, index) => (
@@ -57,7 +57,7 @@ const FeatureOverview = () => {
         </div>
         <div className="text-center">
           {/* <Button size="lg"> */}
-            <button className="border p-5 rounded-full hover:bg-primary">
+            <button className=" border p-5 rounded-full hover:bg-primary">
                 Explore All Features
             </button>
           {/* </Button> */}

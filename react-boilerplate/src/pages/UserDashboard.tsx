@@ -6,6 +6,15 @@ import AssetList from '../components/AssetList';
 import Notification from '../components/Notification';
 import Modal from '../components/Modal';
 import AssetForm from '../components/AssetForm';
+import AssetDetails from '../components/AssetDetails';
+
+interface Asset {
+  assetId: string;
+  assetName: string;
+  assetType: string;
+  description: string;
+  imageUrl: string;
+}
 
 interface UserDashboardProps {
   account: string;
@@ -14,9 +23,24 @@ interface UserDashboardProps {
 }
 
 const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNotification }) => {
-  const [assets, setAssets] = useState<Array<{ assetType: string; assetId: string; approvalStatus?: boolean }>>([]);
+  const [assets, setAssets] = useState<Asset[]>([
+    {
+      assetId: '1',
+      assetName: 'Asset 1',
+      assetType: 'Certificate',
+      description: 'This is a description for Asset 1',
+      imageUrl: 'https://via.placeholder.com/150', // Dummy image URL
+    },
+    {
+      assetId: '2',
+      assetName: 'Asset 2',
+      assetType: 'DigitalStamp',
+      description: 'This is a description for Asset 2',
+      imageUrl: 'https://via.placeholder.com/150', // Dummy image URL
+    },
+  ]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [activeForm, setActiveForm] = useState<string | null>(null);
+  const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
 
   useEffect(() => {
     if (account) {
@@ -39,15 +63,21 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
     }
   };
 
-  const handleAssetSubmit = async (assetData: { assetType: string; assetId: string; details: Record<string, string> }) => {
+  const handleAssetSubmit = async (assetData: { assetName: string; assetType: string; assetId: string; image: File; details: Record<string, string> }) => {
     try {
+      const formData = new FormData();
+      formData.append('ownerAddress', account);
+      formData.append('assetName', assetData.assetName);
+      formData.append('assetType', assetData.assetType);
+      formData.append('assetId', assetData.assetId);
+      formData.append('description', assetData.details.description);
+      formData.append('image', assetData.image);
+
       const response = await fetch('http://localhost:3001/add-asset', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ...assetData, ownerAddress: account }),
+        body: formData,
       });
+
       const data = await response.json();
       if (data.success) {
         setNotification({ message: 'Asset submitted successfully', type: 'success' });
@@ -62,26 +92,18 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
     }
   };
 
-  const handleMint = async (asset: { assetType: string; assetId: string }) => {
-    try {
-      const tx = await contract.mintAsset(asset.assetType, asset.assetId, 'ipfs://YOUR_IPFS_URI');
-      await tx.wait();
-      setNotification({ message: 'Asset minted successfully', type: 'success' });
-      fetchAssets(account);
-    } catch (error) {
-      console.error('Error minting asset', error);
-      setNotification({ message: 'Failed to mint asset', type: 'error' });
-    }
-  };
-
-  const openModal = (formType: string) => {
-    setActiveForm(formType);
+  const openModal = () => {
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setActiveForm(null);
     setIsModalOpen(false);
+    setSelectedAsset(null); // Reset selected asset when closing modal
+  };
+
+  const viewAssetDetails = (asset: Asset) => {
+    setSelectedAsset(asset);
+    openModal();
   };
 
   return (
@@ -94,48 +116,47 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
         <p className="text-xl">Account: {account}</p>
       </div>
 
-      {/* Asset List */}
-      <AssetList assets={assets} onMint={handleMint} />
-
-      {/* Dashboard Actions */}
-      <div className="text-center mt-4">
-        <button
-          onClick={() => openModal('Certificate')}
-          className="px-4 py-2 m-2 rounded bg-teal-600 text-white"
-        >
-          Add Certificate
-        </button>
-        <button
-          onClick={() => openModal('Product')}
-          className="px-4 py-2 m-2 rounded bg-teal-600 text-white"
-        >
-          Add Product
-        </button>
-        <button
-          onClick={() => openModal('Land')}
-          className="px-4 py-2 m-2 rounded bg-teal-600 text-white"
-        >
-          Add Land
-        </button>
-        <button
-          onClick={() => openModal('Vehicle')}
-          className="px-4 py-2 m-2 rounded bg-teal-600 text-white"
-        >
-          Add Vehicle
-        </button>
-        <Link to="/settings">
-          <button className="px-4 py-2 m-2 rounded bg-teal-600 text-white">
-            Settings
-          </button>
-        </Link>
+      {/* Asset Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {assets.map((asset) => (
+          <div
+            key={asset.assetId}
+            className="p-4 bg-white rounded shadow hover:bg-gray-200 cursor-pointer"
+            onClick={() => viewAssetDetails(asset)}
+          >
+            <img src={asset.imageUrl} alt={asset.assetName} className="w-full h-32 object-cover rounded mb-4" />
+            <h3 className="text-lg font-semibold">{asset.assetName}</h3>
+            <p className="text-sm text-gray-600">{asset.assetType}</p>
+            <p className="text-sm text-gray-600">{asset.description}</p>
+          </div>
+        ))}
       </div>
 
-      {/* Modal Implementation */}
+      {/* Create Asset Button */}
+      <div className="text-center mt-6 grid grid-cols-2 gap-2">
+        <button
+          onClick={openModal}
+          className="px-4 py-2 rounded bg-teal-600 text-white"
+        >
+          Add Asset Asset
+        </button>
+        <button
+          className="px-4 py-2 rounded bg-teal-600 text-white"
+        >
+          Verify Asset
+        </button>
+      </div>
+
+      {/* Modal for AssetForm and Asset Details */}
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        {activeForm && (
+        {selectedAsset ? (
           <div>
-            <h2 className="font-semibold text-xl mb-4">Add New Asset - {activeForm}</h2>
-            <AssetForm assetType={activeForm} onSubmit={handleAssetSubmit} />
+            <AssetDetails selectedAsset={selectedAsset} />
+          </div>
+        ) : (
+          <div>
+            <h2 className="font-semibold text-xl mb-4">Add Asset</h2>
+            <AssetForm onSubmit={handleAssetSubmit} />
           </div>
         )}
       </Modal>
