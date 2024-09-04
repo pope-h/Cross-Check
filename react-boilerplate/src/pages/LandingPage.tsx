@@ -9,6 +9,7 @@ import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 import AssetForm from "../components/AssetForm";
 import AssetDetails from "../components/AssetDetails"; // Import AssetDetails for showing verified asset details
+import VerifyAsset from "./VerifyAsset";
 
 const LandingPage: React.FC = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -101,22 +102,7 @@ const LandingPage: React.FC = () => {
 
       {/* Verify Asset Modal */}
       <Modal isOpen={isVerifyModalOpen} onClose={closeVerifyModal}>
-        <h2 className="font-semibold text-xl mb-4">Verify Asset</h2>
-        <div className="mb-4">
-          <input
-            type="text"
-            value={verifyTokenId}
-            onChange={(e) => setVerifyTokenId(e.target.value)}
-            placeholder="Enter Token ID"
-            className="w-full p-2 bg-gray-200 rounded outline-none"
-          />
-        </div>
-        <button
-          onClick={handleVerifyAsset}
-          className="px-4 py-2 mb-4 rounded bg-teal-600 text-white w-full"
-        >
-          Verify
-        </button>
+        <VerifyAsset />
         {verifiedAsset && (
           <div>
             <AssetDetails selectedAsset={verifiedAsset} />

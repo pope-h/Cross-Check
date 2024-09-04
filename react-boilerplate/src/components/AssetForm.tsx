@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 
 interface AssetFormProps {
-  onSubmit: (assetData: { assetName: string; assetType: string; assetId: string; image: File; details: Record<string, string> }) => void;
+  onSubmit: (assetData: { assetName: string; assetType: string; image: File; details: Record<string, string> }) => void;
 }
 
 const AssetForm: React.FC<AssetFormProps> = ({ onSubmit }) => {
   const [assetName, setAssetName] = useState('');
   const [assetType, setAssetType] = useState('Certificate'); // Default value
-  const [assetId, setAssetId] = useState('');
   const [details, setDetails] = useState<Record<string, string>>({ description: '' });
   const [image, setImage] = useState<File | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (image) {
-      onSubmit({ assetName, assetType, assetId, image, details });
+      onSubmit({ assetName, assetType, image, details });
     } else {
       alert("Please upload an image.");
     }
@@ -29,18 +28,6 @@ const AssetForm: React.FC<AssetFormProps> = ({ onSubmit }) => {
           value={assetName}
           placeholder="Asset Name"
           onChange={(e) => setAssetName(e.target.value)}
-          className="mt-1 p-2 bg-teal-700 placeholder:text-teal-300 block w-full rounded-md outline-none shadow-sm"
-          required
-        />
-      </div>
-
-      <div>
-        <input
-          id="assetId"
-          type="text"
-          value={assetId}
-          placeholder="Asset ID"
-          onChange={(e) => setAssetId(e.target.value)}
           className="mt-1 p-2 bg-teal-700 placeholder:text-teal-300 block w-full rounded-md outline-none shadow-sm"
           required
         />
