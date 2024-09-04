@@ -39,8 +39,11 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
       imageUrl: 'https://via.placeholder.com/150', // Dummy image URL
     },
   ]);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
+  const [isVerifyModalOpen, setIsVerifyModalOpen] = useState<boolean>(false);
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
+  const [verifyTokenId, setVerifyTokenId] = useState<string>('');
+  const [verifiedAsset, setVerifiedAsset] = useState<Asset | null>(null);
 
   useEffect(() => {
     if (account) {
@@ -82,7 +85,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
       if (data.success) {
         setNotification({ message: 'Asset submitted successfully', type: 'success' });
         fetchAssets(account);
-        closeModal(); // Close modal after successful submission
+        closeAddModal(); // Close modal after successful submission
       } else {
         throw new Error(data.error);
       }
@@ -92,18 +95,43 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
     }
   };
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const handleVerifyAsset = async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/verify-asset?tokenId=${verifyTokenId}`);
+      const data = await response.json();
+      if (data.success) {
+        setVerifiedAsset(data.asset);
+      } else {
+        throw new Error(data.error);
+      }
+    } catch (error) {
+      console.error('Error verifying asset', error);
+      setNotification({ message: 'Failed to verify asset', type: 'error' });
+    }
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const openAddModal = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const closeAddModal = () => {
+    setIsAddModalOpen(false);
     setSelectedAsset(null); // Reset selected asset when closing modal
+  };
+
+  const openVerifyModal = () => {
+    setIsVerifyModalOpen(true);
+  };
+
+  const closeVerifyModal = () => {
+    setIsVerifyModalOpen(false);
+    setVerifyTokenId('');
+    setVerifiedAsset(null); // Reset verification state when closing modal
   };
 
   const viewAssetDetails = (asset: Asset) => {
     setSelectedAsset(asset);
-    openModal();
+    openAddModal();
   };
 
   return (
@@ -132,23 +160,24 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
         ))}
       </div>
 
-      {/* Create Asset Button */}
+      {/* Add and Verify Asset Buttons */}
       <div className="text-center mt-6 grid grid-cols-2 gap-2">
         <button
-          onClick={openModal}
+          onClick={openAddModal}
           className="px-4 py-2 rounded bg-teal-600 text-white"
         >
-          Add Asset Asset
+          Add Asset
         </button>
         <button
+          onClick={openVerifyModal}
           className="px-4 py-2 rounded bg-teal-600 text-white"
         >
           Verify Asset
         </button>
       </div>
 
-      {/* Modal for AssetForm and Asset Details */}
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
+      {/* Modal for Adding Asset */}
+      <Modal isOpen={isAddModalOpen} onClose={closeAddModal}>
         {selectedAsset ? (
           <div>
             <AssetDetails selectedAsset={selectedAsset} />
@@ -157,6 +186,31 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
           <div>
             <h2 className="font-semibold text-xl mb-4">Add Asset</h2>
             <AssetForm onSubmit={handleAssetSubmit} />
+          </div>
+        )}
+      </Modal>
+
+      {/* Modal for Verifying Asset */}
+      <Modal isOpen={isVerifyModalOpen} onClose={closeVerifyModal}>
+        <h2 className="font-semibold text-xl mb-4">Verify Asset</h2>
+        <div className="mb-4">
+          <input
+            type="text"
+            value={verifyTokenId}
+            onChange={(e) => setVerifyTokenId(e.target.value)}
+            placeholder="Enter Token ID"
+            className="w-full p-2 bg-gray-200 rounded outline-none"
+          />
+        </div>
+        <button
+          onClick={handleVerifyAsset}
+          className="px-4 py-2 mb-4 rounded bg-teal-600 text-white w-full"
+        >
+          Verify
+        </button>
+        {verifiedAsset && (
+          <div>
+            <AssetDetails selectedAsset={verifiedAsset} />
           </div>
         )}
       </Modal>

@@ -17,8 +17,8 @@ export default function NavBar() {
           <div
             className={`${
               show
-                ? "absolute lg:relative z-50 w-full text-center lg:m-0 text-white lg:text-green-500"
-                : " text-green-500"
+                ? "absolute lg:relative z-50 w-full text-center lg:m-0 text-white lg:text-teal-500"
+                : " text-teal-500"
             }`}
           >
             <h1 className="text-2xl font-extrabold">crossCheck</h1>
@@ -51,27 +51,27 @@ export default function NavBar() {
         </motion.button>
         {/* <motion.ul className="hidden lg:flex w-3/6 justify-around">
           <a href="#"></a>
-          <li className="slow hover:text-green-800">
+          <li className="slow hover:text-teal-800">
             <a className="slow hover:underline" href="#">
               HOME
             </a>
           </li>
-          <li className="slow hover:text-green-800">
+          <li className="slow hover:text-teal-800">
             <a className="slow hover:underline" href="/dashboard">
               Dashboard
             </a>
           </li>
-          <li className="slow hover:text-green-800">
+          <li className="slow hover:text-teal-800">
             <a className="slow hover:underline" href="#ABOUT">
               ABOUT
             </a>
           </li>
-          <li className="slow hover:text-green-800">
+          <li className="slow hover:text-teal-800">
             <a className="slow hover:underline" href="#WHYUS">
               WHY US?
             </a>
           </li>
-          <li className="slow hover:text-green-800">
+          <li className="slow hover:text-teal-800">
             <a className="slow hover:underline" href="#FEATURE">
               FEATURES
             </a>
@@ -92,27 +92,27 @@ export default function NavBar() {
               transition={{ duration: 1, ease: "easeInOut" }}
             >
               <a href="#"></a>
-              <li className="slow hover:text-green-800 text-lg">
+              <li className="slow hover:text-teal-800 text-lg">
                 <a className="slow hover:underline" href="#">
                   HOME
                 </a>
               </li>
-              <li className="slow hover:text-green-800 text-lg">
+              <li className="slow hover:text-teal-800 text-lg">
                 <a className="slow hover:underline" href="#SERVICES">
                   SERVICES
                 </a>
               </li>
-              <li className="slow hover:text-green-800 text-lg">
+              <li className="slow hover:text-teal-800 text-lg">
                 <a className="slow hover:underline" href="#ABOUT">
                   ABOUT
                 </a>
               </li>
-              <li className="slow hover:text-green-800 text-lg">
+              <li className="slow hover:text-teal-800 text-lg">
                 <a className="slow hover:underline" href="#WHYUS">
                   WHY US?
                 </a>
               </li>
-              <li className="slow hover:text-green-800 text-lg">
+              <li className="slow hover:text-teal-800 text-lg">
                 <a className="slow hover:underline" href="#FEATURE">
                   FEATURES
                 </a>
@@ -122,7 +122,7 @@ export default function NavBar() {
         </AnimatePresence> */}
 
         <div className="flex gap-2">
-          <button className="border-none p-2 hidden lg:block shadow-md rounded-xl bg-green-500 text-white hover:bg-green-400">
+          <button className="border-none p-2 hidden lg:block shadow-md rounded-xl bg-teal-500 text-white hover:bg-teal-400">
             CONNECT WALLET
           </button>
           <Link to={"/dashboard"} className="my-auto">
