@@ -13,17 +13,17 @@ export default function NavBar() {
       <div
         className={`slow bg-teal-600 flex items-center justify-between px-4 md:px-20 lg:px-32 py-2 w-full`}
       >
-        <a href="#">
+        <a href="/">
           <div
             className={`${
               show
                 ? "absolute lg:relative z-50 w-full text-center lg:m-0 text-white lg:text-teal-500"
-                : " text-teal-500"
+                : " text-teal-100"
             }`}
           >
             <h1 className="text-2xl font-extrabold">crossCheck</h1>
             <p className={`${show ? "text-center" : "text-end"} text-xs`}>
-              Verify Your Assets
+              verify Your Assets
             </p>
           </div>
         </a>

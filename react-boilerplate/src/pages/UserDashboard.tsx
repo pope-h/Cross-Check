@@ -1,9 +1,6 @@
 // src/pages/UserDashboard.tsx
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import AssetList from '../components/AssetList';
-import Notification from '../components/Notification';
 import Modal from '../components/Modal';
 import AssetForm from '../components/AssetForm';
 import AssetDetails from '../components/AssetDetails';
@@ -22,7 +19,7 @@ interface UserDashboardProps {
   setNotification: (notification: { message: string; type: 'error' | 'success' }) => void;
 }
 
-const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNotification }) => {
+const UserDashboard: React.FC<UserDashboardProps> = ({ account, setNotification }) => {
   const [assets, setAssets] = useState<Asset[]>([
     {
       assetId: '1',
@@ -40,10 +37,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
     },
   ]);
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
-  const [isVerifyModalOpen, setIsVerifyModalOpen] = useState<boolean>(false);
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null);
-  const [verifyTokenId, setVerifyTokenId] = useState<string>('');
-  const [verifiedAsset, setVerifiedAsset] = useState<Asset | null>(null);
 
   useEffect(() => {
     if (account) {
@@ -66,13 +60,12 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
     }
   };
 
-  const handleAssetSubmit = async (assetData: { assetName: string; assetType: string; assetId: string; image: File; details: Record<string, string> }) => {
+  const handleAssetSubmit = async (assetData: { assetName: string; assetType: string; image: File; details: Record<string, string> }) => {
     try {
       const formData = new FormData();
       formData.append('ownerAddress', account);
       formData.append('assetName', assetData.assetName);
       formData.append('assetType', assetData.assetType);
-      formData.append('assetId', assetData.assetId);
       formData.append('description', assetData.details.description);
       formData.append('image', assetData.image);
 
@@ -95,21 +88,6 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
     }
   };
 
-  const handleVerifyAsset = async () => {
-    try {
-      const response = await fetch(`http://localhost:3001/verify-asset?tokenId=${verifyTokenId}`);
-      const data = await response.json();
-      if (data.success) {
-        setVerifiedAsset(data.asset);
-      } else {
-        throw new Error(data.error);
-      }
-    } catch (error) {
-      console.error('Error verifying asset', error);
-      setNotification({ message: 'Failed to verify asset', type: 'error' });
-    }
-  };
-
   const openAddModal = () => {
     setIsAddModalOpen(true);
   };
@@ -117,16 +95,6 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
   const closeAddModal = () => {
     setIsAddModalOpen(false);
     setSelectedAsset(null); // Reset selected asset when closing modal
-  };
-
-  const openVerifyModal = () => {
-    setIsVerifyModalOpen(true);
-  };
-
-  const closeVerifyModal = () => {
-    setIsVerifyModalOpen(false);
-    setVerifyTokenId('');
-    setVerifiedAsset(null); // Reset verification state when closing modal
   };
 
   const viewAssetDetails = (asset: Asset) => {
@@ -153,7 +121,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
             onClick={() => viewAssetDetails(asset)}
           >
             <img src={asset.imageUrl} alt={asset.assetName} className="w-full h-32 object-cover rounded mb-4" />
-            <h3 className="text-lg font-semibold">{asset.assetName}</h3>
+            <h3 className="text-lg font-semibold text-gray-600">{asset.assetName}</h3>
             <p className="text-sm text-gray-600">{asset.assetType}</p>
             <p className="text-sm text-gray-600">{asset.description}</p>
           </div>
@@ -161,18 +129,12 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
       </div>
 
       {/* Add and Verify Asset Buttons */}
-      <div className="text-center mt-6 grid grid-cols-2 gap-2">
+      <div className="text-center mt-6">
         <button
           onClick={openAddModal}
           className="px-4 py-2 rounded bg-teal-600 text-white"
         >
           Add Asset
-        </button>
-        <button
-          onClick={openVerifyModal}
-          className="px-4 py-2 rounded bg-teal-600 text-white"
-        >
-          Verify Asset
         </button>
       </div>
 
@@ -186,31 +148,6 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
           <div>
             <h2 className="font-semibold text-xl mb-4">Add Asset</h2>
             <AssetForm onSubmit={handleAssetSubmit} />
-          </div>
-        )}
-      </Modal>
-
-      {/* Modal for Verifying Asset */}
-      <Modal isOpen={isVerifyModalOpen} onClose={closeVerifyModal}>
-        <h2 className="font-semibold text-xl mb-4">Verify Asset</h2>
-        <div className="mb-4">
-          <input
-            type="text"
-            value={verifyTokenId}
-            onChange={(e) => setVerifyTokenId(e.target.value)}
-            placeholder="Enter Token ID"
-            className="w-full p-2 bg-gray-200 rounded outline-none"
-          />
-        </div>
-        <button
-          onClick={handleVerifyAsset}
-          className="px-4 py-2 mb-4 rounded bg-teal-600 text-white w-full"
-        >
-          Verify
-        </button>
-        {verifiedAsset && (
-          <div>
-            <AssetDetails selectedAsset={verifiedAsset} />
           </div>
         )}
       </Modal>
