@@ -20,14 +20,16 @@ contract CrossCheck is ERC721URIStorage {
         bytes4 accessToken;
         uint256 expiryTime;
         address[] custodyChain;
+        bool isReturned;
     }
 
-    mapping(uint256 => Asset) private _assets;
-    mapping(address => mapping(AssetType => uint256[])) private _userAssets;
+    mapping(uint256 => Asset) private _assets; // returns the assets associated with each tokenId
+    mapping(address => mapping(AssetType => uint256[])) private _userAssets; // returns the tokenIds of the assets owned by the addr
 
     event AssetMinted(uint256 indexed tokenId, address indexed owner, AssetType assetType, string assetId);
     event AccessGranted(uint256 indexed tokenId, bytes32 accessToken, uint256 expirationTime);
-    event CustodyTransferred(uint256 indexed tokenId, address indexed from, address indexed to);
+    event CustodyTransferred(uint256 indexed tokenId, address indexed from, address indexed to, bool forced);
+    event CustodyReturned(uint256 indexed tokenId, address indexed custodian);
 
     constructor() ERC721("CrossCheck", "XCHK") {}
 
@@ -52,10 +54,34 @@ contract CrossCheck is ERC721URIStorage {
         newAsset.assetType = assetType;
         newAsset.assetId = Strings.toString(newAssetId);  // Convert to string
         newAsset.custodyChain.push(msg.sender);
+        newAsset.isReturned = true;
 
         _userAssets[msg.sender][assetType].push(newTokenId);
 
         emit AssetMinted(newTokenId, msg.sender, assetType, newAsset.assetId);
+    }
+
+    function returnCustody(uint256 tokenId) external {
+        require(_assets[tokenId].custodyChain[_assets[tokenId].custodyChain.length - 1] == msg.sender, "Not the current custodian");
+        _assets[tokenId].isReturned = true;
+        emit CustodyReturned(tokenId, msg.sender);
+    }
+
+    function transferCustody(uint256 tokenId, address newCustodian) external {
+        require(ownerOf(tokenId) == msg.sender, "Not the token owner");
+
+        bool wasForced = false;
+        if (!_isReturned(tokenId)) {
+            wasForced = true;
+        }
+
+        _assets[tokenId].custodyChain.push(newCustodian);
+        _assets[tokenId].isReturned = false;
+        emit CustodyTransferred(tokenId, msg.sender, newCustodian, wasForced);
+    }
+
+    function _isReturned(uint256 tokenId) private view returns (bool) {
+        return _assets[tokenId].isReturned;
     }
 
     function _isAssetIdTaken(uint256 assetId) private view returns (bool) {
@@ -111,14 +137,14 @@ contract CrossCheck is ERC721URIStorage {
         return _userAssets[user][assetType];
     }
 
-    function transferCustody(uint256 tokenId, address newCustodian) external {
-        require(ownerOf(tokenId) == msg.sender, "Not the token owner");
-        _assets[tokenId].custodyChain.push(newCustodian);
-        emit CustodyTransferred(tokenId, msg.sender, newCustodian);
-    }
-
-    function getCustodyChain(uint256 tokenId) external view returns (address[] memory) {
+    function getCustodyChain(uint256 tokenId, bytes4 accessToken) external view returns (address[] memory) {
         require(balanceOf(ownerOf(tokenId)) > 0, "Asset does not exist");
+        require(
+            _assets[tokenId].accessToken == accessToken &&
+            block.timestamp <= _assets[tokenId].expiryTime,
+            "Not authorized or access expired"
+        );
+
         return _assets[tokenId].custodyChain;
     }
 
