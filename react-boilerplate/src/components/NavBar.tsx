@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { CircleUser } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
   const [show, setShow] = useState(false);
@@ -20,11 +22,7 @@ export default function NavBar() {
             }`}
           >
             <h1 className="text-2xl font-extrabold">crossCheck</h1>
-            <p
-              className={`${
-                show ? "text-center" : "text-end"
-              } text-xs`}
-            >
+            <p className={`${show ? "text-center" : "text-end"} text-xs`}>
               Verify Your Assets
             </p>
           </div>
@@ -123,8 +121,13 @@ export default function NavBar() {
           )}
         </AnimatePresence> */}
 
-        <div className="slow hidden lg:block shadow-md rounded-xl bg-green-500 text-white p-2 hover:bg-green-400">
-          <button className="border-none">CONNECT WALLET</button>
+        <div className="flex gap-2">
+          <button className="border-none p-2 hidden lg:block shadow-md rounded-xl bg-green-500 text-white hover:bg-green-400">
+            CONNECT WALLET
+          </button>
+          <Link to={"/dashboard"} className="my-auto">
+            <CircleUser />
+          </Link>
         </div>
       </div>
     </div>

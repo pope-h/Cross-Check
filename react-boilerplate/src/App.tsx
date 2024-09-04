@@ -5,6 +5,8 @@ import Dashboard from "./components/GetStarted";
 import VerifyAsset from "./pages/VerifyAsset";
 import Notification from "./components/Notification";
 import UserDashboard from "./pages/UserDashboard";
+import NavBar from "./components/NavBar";
+// import UserDashboard from "./pages/UserDashboard";
 
 const App: React.FC = () => {
   const [notification, setNotification] = useState<{
@@ -15,6 +17,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <div className="min-h-screen bg-teal-600 w-screen">
+        <NavBar />
         {notification && (
           <Notification
             message={notification.message}
