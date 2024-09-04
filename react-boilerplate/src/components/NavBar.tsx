@@ -7,9 +7,9 @@ export default function NavBar() {
   const [show, setShow] = useState(false);
 
   return (
-    <div className="fixed top-0 z-50 w-full">
+    <div className="top-0 z-50 w-full">
       <div
-        className={`slow bg-teal-700 flex items-center justify-between px-4 md:px-20 lg:px-32 py-2 shadow-sm border-b-2 border-teal-800 w-full`}
+        className={`slow bg-teal-600 flex items-center justify-between px-4 md:px-20 lg:px-32 py-2 w-full`}
       >
         <a href="#">
           <div
@@ -51,7 +51,7 @@ export default function NavBar() {
             className={`absolute z-50 ${show ? "block" : "hidden"}`}
           />
         </motion.button>
-        <motion.ul className="hidden lg:flex w-3/6 justify-around">
+        {/* <motion.ul className="hidden lg:flex w-3/6 justify-around">
           <a href="#"></a>
           <li className="slow hover:text-green-800">
             <a className="slow hover:underline" href="#">
@@ -78,9 +78,9 @@ export default function NavBar() {
               FEATURES
             </a>
           </li>
-        </motion.ul>
+        </motion.ul> */}
 
-        <AnimatePresence mode="popLayout">
+        {/* <AnimatePresence mode="popLayout">
           {show && (
             <motion.ul
               className={`${
@@ -121,7 +121,7 @@ export default function NavBar() {
               </li>
             </motion.ul>
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
 
         <div className="slow hidden lg:block shadow-md rounded-xl bg-green-500 text-white p-2 hover:bg-green-400">
           <button className="border-none">CONNECT WALLET</button>

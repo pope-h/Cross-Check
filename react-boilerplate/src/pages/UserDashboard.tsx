@@ -14,9 +14,8 @@ interface UserDashboardProps {
 }
 
 const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNotification }) => {
-  const [assets, setAssets] = useState<Array<{ assetType: string; assetId: string; approvalStatus?: boolean }>>([]);
+  const [assets, setAssets] = useState<Array<{ assetType: string; assetId: string; imageUrl?: string }>>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [activeForm, setActiveForm] = useState<string | null>(null);
 
   useEffect(() => {
     if (account) {
@@ -39,15 +38,19 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
     }
   };
 
-  const handleAssetSubmit = async (assetData: { assetType: string; assetId: string; details: Record<string, string> }) => {
+  const handleAssetSubmit = async (assetData: { assetName: string; assetType: string; image: File }) => {
     try {
+      const formData = new FormData();
+      formData.append('ownerAddress', account);
+      formData.append('assetName', assetData.assetName);
+      formData.append('assetType', assetData.assetType);
+      formData.append('image', assetData.image);
+
       const response = await fetch('http://localhost:3001/add-asset', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ...assetData, ownerAddress: account }),
+        body: formData,
       });
+
       const data = await response.json();
       if (data.success) {
         setNotification({ message: 'Asset submitted successfully', type: 'success' });
@@ -62,25 +65,11 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
     }
   };
 
-  const handleMint = async (asset: { assetType: string; assetId: string }) => {
-    try {
-      const tx = await contract.mintAsset(asset.assetType, asset.assetId, 'ipfs://YOUR_IPFS_URI');
-      await tx.wait();
-      setNotification({ message: 'Asset minted successfully', type: 'success' });
-      fetchAssets(account);
-    } catch (error) {
-      console.error('Error minting asset', error);
-      setNotification({ message: 'Failed to mint asset', type: 'error' });
-    }
-  };
-
-  const openModal = (formType: string) => {
-    setActiveForm(formType);
+  const openModal = () => {
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setActiveForm(null);
     setIsModalOpen(false);
   };
 
@@ -94,50 +83,25 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
         <p className="text-xl">Account: {account}</p>
       </div>
 
-      {/* Asset List */}
-      <AssetList assets={assets} onMint={handleMint} />
-
-      {/* Dashboard Actions */}
-      <div className="text-center mt-4">
-        <button
-          onClick={() => openModal('Certificate')}
-          className="px-4 py-2 m-2 rounded bg-teal-600 text-white"
-        >
-          Add Certificate
-        </button>
-        <button
-          onClick={() => openModal('Product')}
-          className="px-4 py-2 m-2 rounded bg-teal-600 text-white"
-        >
-          Add Product
-        </button>
-        <button
-          onClick={() => openModal('Land')}
-          className="px-4 py-2 m-2 rounded bg-teal-600 text-white"
-        >
-          Add Land
-        </button>
-        <button
-          onClick={() => openModal('Vehicle')}
-          className="px-4 py-2 m-2 rounded bg-teal-600 text-white"
-        >
-          Add Vehicle
-        </button>
-        <Link to="/settings">
-          <button className="px-4 py-2 m-2 rounded bg-teal-600 text-white">
-            Settings
+      {/* Asset List or No Asset Message */}
+      {assets.length === 0 ? (
+        <div className="text-center p-4 bg-red-100 text-red-600 rounded">
+          <p>No Asset Found, please create asset.</p>
+          <button
+            onClick={openModal}
+            className="px-4 py-2 mt-4 rounded bg-teal-600 text-white"
+          >
+            Create Asset
           </button>
-        </Link>
-      </div>
+        </div>
+      ) : (
+        <AssetList assets={assets} onMint={() => {}} />
+      )}
 
       {/* Modal Implementation */}
       <Modal isOpen={isModalOpen} onClose={closeModal}>
-        {activeForm && (
-          <div>
-            <h2 className="font-semibold text-xl mb-4">Add New Asset - {activeForm}</h2>
-            <AssetForm assetType={activeForm} onSubmit={handleAssetSubmit} />
-          </div>
-        )}
+        <h2 className="font-semibold text-xl mb-4">Create New Asset</h2>
+        <AssetForm onSubmit={handleAssetSubmit} />
       </Modal>
     </div>
   );

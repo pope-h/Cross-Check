@@ -105,7 +105,7 @@ const GetStarted: React.FC<DashboardProps> = ({ account, contract, setNotificati
       {activeForm && (
         <div>
           <h2 className="font-semibold text-xl mb-4">add new asset - {activeForm}</h2>
-          <AssetForm assetType={activeForm} onSubmit={handleAssetSubmit} />
+          {/* <AssetForm assetType={activeForm} onSubmit={handleAssetSubmit} /> */}
         </div>
       )}
     </div>

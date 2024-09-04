@@ -1,35 +1,69 @@
+// src/components/AssetForm.tsx
+
 import React, { useState } from 'react';
 
 interface AssetFormProps {
-  assetType: string;
-  onSubmit: (assetData: { assetType: string; assetId: string; details: Record<string, string> }) => void;
+  onSubmit: (assetData: { assetName: string; assetType: string; image: File }) => void;
 }
 
-const AssetForm: React.FC<AssetFormProps> = ({ assetType, onSubmit }) => {
-  const [assetId, setAssetId] = useState('');
-  const [details, setDetails] = useState<Record<string, string>>({});
+const AssetForm: React.FC<AssetFormProps> = ({ onSubmit }) => {
+  const [assetName, setAssetName] = useState<string>('');
+  const [assetType, setAssetType] = useState<string>('Certificate');
+  const [image, setImage] = useState<File | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({ assetType, assetId, details });
+    if (image) {
+      onSubmit({ assetName, assetType, image });
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className=''>
-      <div className=''>
-        {/* <label htmlFor="assetId">Asset ID</label> */}
+    <form onSubmit={handleFormSubmit} className="space-y-4">
+      <div>
+        <label className="block mb-2 text-sm font-medium text-gray-200">Asset Name</label>
         <input
-          id="assetId"
           type="text"
-          value={assetId}
-          placeholder='Asset ID'
-          onChange={(e) => setAssetId(e.target.value)}
-          className="mt-1 p-2 bg-green-700 placeholder:text-green-300 block w-full rounded-md outline-none shadow-sm"
+          value={assetName}
+          onChange={(e) => setAssetName(e.target.value)}
           required
+          className="w-full p-2 text-gray-900 bg-gray-200 rounded"
         />
       </div>
-      {/* Add more fields based on asset type */}
-      <button type="submit" className="mt-4 p-2 w-full border border-green-500">Submit {assetType}</button>
+
+      <div>
+        <label className="block mb-2 text-sm font-medium text-gray-200">Asset Type</label>
+        <select
+          value={assetType}
+          onChange={(e) => setAssetType(e.target.value)}
+          required
+          className="w-full p-2 text-gray-900 bg-gray-200 rounded"
+        >
+          <option value="Certificate">Certificate</option>
+          <option value="DigitalStamp">DigitalStamp</option>
+          <option value="TradeDocument">TradeDocument</option>
+          <option value="Firearm">Firearm</option>
+          <option value="PetroleumBatch">PetroleumBatch</option>
+        </select>
+      </div>
+
+      <div>
+        <label className="block mb-2 text-sm font-medium text-gray-200">Upload Image</label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setImage(e.target.files ? e.target.files[0] : null)}
+          required
+          className="w-full p-2 text-gray-900 bg-gray-200 rounded"
+        />
+      </div>
+
+      <button
+        type="submit"
+        className="px-4 py-2 mt-4 rounded bg-teal-600 text-white"
+      >
+        Submit Asset
+      </button>
     </form>
   );
 };
