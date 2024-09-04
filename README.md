@@ -32,3 +32,9 @@ Step 3: Transfer custody of the asset as needed, with every transaction recorded
 Step 4: Allow authorized parties to verify the asset's authenticity using the access token.
 
 - Why CrossCheck? "In a world where authenticity and transparency are paramount, CrossCheck offers a cutting-edge solution for businesses and individuals alike. By leveraging the power of blockchain technology, we provide a secure, reliable, and efficient way to manage and verify asset ownership."
+
+- CrossCheck Contract Deployed at 0x6cf5c0d2c10aBc37aaCD212E1501d4D39e620fD9
+
+- Successfully verified contract CrossCheck on the block explorer.
+https://sepolia-blockscout.lisk.com/address/0x6cf5c0d2c10aBc37aaCD212E1501d4D39e620fD9#code
+
