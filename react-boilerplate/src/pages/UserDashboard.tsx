@@ -6,6 +6,7 @@ import AssetList from '../components/AssetList';
 import Notification from '../components/Notification';
 import Modal from '../components/Modal';
 import AssetForm from '../components/AssetForm';
+import AssetDetails from '../components/AssetDetails';
 
 interface Asset {
   assetId: string;
@@ -132,12 +133,17 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
       </div>
 
       {/* Create Asset Button */}
-      <div className="text-center mt-6">
+      <div className="text-center mt-6 grid grid-cols-2 gap-2">
         <button
           onClick={openModal}
           className="px-4 py-2 rounded bg-teal-600 text-white"
         >
-          Create New Asset
+          Add Asset Asset
+        </button>
+        <button
+          className="px-4 py-2 rounded bg-teal-600 text-white"
+        >
+          Verify Asset
         </button>
       </div>
 
@@ -145,15 +151,11 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, contract, setNot
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         {selectedAsset ? (
           <div>
-            <h2 className="font-semibold text-xl mb-4">Asset Details - {selectedAsset.assetName}</h2>
-            <img src={selectedAsset.imageUrl} alt={selectedAsset.assetName} className="w-full h-48 object-cover rounded mb-4" />
-            <p><strong>Type:</strong> {selectedAsset.assetType}</p>
-            <p><strong>Description:</strong> {selectedAsset.description}</p>
-            {/* Additional details can be displayed here */}
+            <AssetDetails selectedAsset={selectedAsset} />
           </div>
         ) : (
           <div>
-            <h2 className="font-semibold text-xl mb-4">Create New Asset</h2>
+            <h2 className="font-semibold text-xl mb-4">Add Asset</h2>
             <AssetForm onSubmit={handleAssetSubmit} />
           </div>
         )}
