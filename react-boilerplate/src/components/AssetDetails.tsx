@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const AssetDetails = ({ selectedAsset }: any) => {
   const [tokenID, setTokenID] = useState<string>("");
