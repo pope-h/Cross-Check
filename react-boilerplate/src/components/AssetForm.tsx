@@ -29,7 +29,7 @@ const AssetForm: React.FC<AssetFormProps> = ({ onSubmit }) => {
           value={assetName}
           placeholder="Asset Name"
           onChange={(e) => setAssetName(e.target.value)}
-          className="mt-1 p-2 bg-green-700 placeholder:text-green-300 block w-full rounded-md outline-none shadow-sm"
+          className="mt-1 p-2 bg-teal-700 placeholder:text-teal-300 block w-full rounded-md outline-none shadow-sm"
           required
         />
       </div>
@@ -41,7 +41,7 @@ const AssetForm: React.FC<AssetFormProps> = ({ onSubmit }) => {
           value={assetId}
           placeholder="Asset ID"
           onChange={(e) => setAssetId(e.target.value)}
-          className="mt-1 p-2 bg-green-700 placeholder:text-green-300 block w-full rounded-md outline-none shadow-sm"
+          className="mt-1 p-2 bg-teal-700 placeholder:text-teal-300 block w-full rounded-md outline-none shadow-sm"
           required
         />
       </div>
@@ -51,7 +51,7 @@ const AssetForm: React.FC<AssetFormProps> = ({ onSubmit }) => {
           id="assetType"
           value={assetType}
           onChange={(e) => setAssetType(e.target.value)}
-          className="mt-1 p-2 bg-green-700 placeholder:text-green-300 block w-full rounded-md outline-none shadow-sm"
+          className="mt-1 p-2 bg-teal-700 placeholder:text-teal-300 block w-full rounded-md outline-none shadow-sm"
           required
         >
           <option value="Certificate">Certificate</option>
@@ -68,7 +68,7 @@ const AssetForm: React.FC<AssetFormProps> = ({ onSubmit }) => {
           type="file"
           accept="image/*"
           onChange={(e) => setImage(e.target.files ? e.target.files[0] : null)}
-          className="mt-1 p-2 bg-green-700 placeholder:text-green-300 block w-full rounded-md outline-none shadow-sm"
+          className="mt-1 p-2 bg-teal-700 placeholder:text-teal-300 block w-full rounded-md outline-none shadow-sm"
           required
         />
       </div>
@@ -79,12 +79,12 @@ const AssetForm: React.FC<AssetFormProps> = ({ onSubmit }) => {
           value={details.description}
           placeholder="Asset Description"
           onChange={(e) => setDetails({ ...details, description: e.target.value })}
-          className="mt-1 p-2 bg-green-700 placeholder:text-green-300 block w-full rounded-md outline-none shadow-sm"
+          className="mt-1 p-2 bg-teal-700 placeholder:text-teal-300 block w-full rounded-md outline-none shadow-sm"
           required
         />
       </div>
 
-      <button type="submit" className="mt-4 p-2 w-full border border-green-500">
+      <button type="submit" className="mt-4 p-2 w-full border border-teal-500">
         Submit {assetType}
       </button>
     </form>

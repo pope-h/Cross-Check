@@ -35,8 +35,8 @@ export default function HowItWorks() {
           {steps.map((step, index) => (
             <div key={index} className={`flex items-center mb-12 md:mb-2 relative ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
               <div className="w-full md:w-1/2 px-4">
-                <div className=" p-6 rounded-lg hover:border-green-400 shadow-lg border-primary border relative">
-                  <div className={`absolute top-6 ${index % 2 === 0 ? 'left-0 transform -translate-x-1/2' : 'right-0 transform translate-x-1/2'} w-4 h-4 rounded-full bg-green-600 hidden md:block`} />
+                <div className=" p-6 rounded-lg hover:border-teal-400 shadow-lg border-primary border relative">
+                  <div className={`absolute top-6 ${index % 2 === 0 ? 'left-0 transform -translate-x-1/2' : 'right-0 transform translate-x-1/2'} w-4 h-4 rounded-full bg-teal-600 hidden md:block`} />
                   <step.icon className="h-10 w-10 text-white mb-4 mx-auto md:mx-0" />
                   <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
                   <p className="text-muted-foreground">{step.description}</p>

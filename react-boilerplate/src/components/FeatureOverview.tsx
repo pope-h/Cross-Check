@@ -46,7 +46,7 @@ const FeatureOverview = () => {
           {features.map((feature, index) => (
             <div key={index} className="flex items-start space-x-4 p-4 rounded-lg transition-all duration-300 hover:bg-primary/5">
               <div className="flex-shrink-0">
-                <feature.icon className="h-6 w-6 text-green-400" />
+                <feature.icon className="h-6 w-6 text-teal-400" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
