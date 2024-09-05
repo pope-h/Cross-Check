@@ -72,7 +72,7 @@ const AssetDetails = ({ selectedAsset }: any) => {
           value={tokenID}
           onChange={(e) => setTokenID(e.target.value)}
           placeholder="Token ID"
-          className="bg-transparent outline-none border border-teal-800 p-2"
+          className="bg-transparent outline-none border border-slate-800 p-2"
           required
         />
         <input
@@ -80,12 +80,12 @@ const AssetDetails = ({ selectedAsset }: any) => {
           value={duration}
           onChange={(e) => setDuration(Number(e.target.value))}
           placeholder="Duration (in secs)"
-          className="bg-transparent outline-none border border-teal-800 p-2"
+          className="bg-transparent outline-none border border-slate-800 p-2"
           required
         />
         <button 
           type="submit"
-          className="text-center rounded bg-teal-700 p-2"
+          className="text-center rounded bg-slate-700 p-2"
         >
           Generate
         </button>
@@ -103,8 +103,8 @@ const AssetDetails = ({ selectedAsset }: any) => {
       {/* Get Access Token */}
       <h1 className="text-center">Get Access Token</h1>
       <form action="submit" className="grid grid-cols-2 gap-3 text-sm">
-        <input type="button" value="Get Access Token" className="text-center rounded bg-teal-700 p-2" />
-        <input type="text" value="XUr3457472230495748384854589" className="bg-transparent outline-none text-slate-400 border border-teal-800 p-2" disabled/>
+        <input type="button" value="Get Access Token" className="text-center rounded bg-slate-700 p-2" />
+        <input type="text" value="XUr3457472230495748384854589" className="bg-transparent outline-none text-slate-400 border border-slate-800 p-2" disabled/>
       </form>
       
       <hr />
@@ -112,8 +112,8 @@ const AssetDetails = ({ selectedAsset }: any) => {
       {/* Revoke Access */}
       <h1 className="text-center">Revoke Access</h1>
       <form action="submit" className="grid grid-cols-3 gap-3 text-sm">
-        <input type="text" placeholder="Input Token ID" className="bg-transparent outline-none border border-teal-800 p-2 col-span-2" />
-        <input type="button" value="Revoke Access" className="text-center rounded bg-teal-700 p-2" />
+        <input type="text" placeholder="Input Token ID" className="bg-transparent outline-none border border-slate-800 p-2 col-span-2" />
+        <input type="button" value="Revoke Access" className="text-center rounded bg-slate-700 p-2" />
       </form>
       
       <hr />
@@ -132,12 +132,12 @@ const AssetDetails = ({ selectedAsset }: any) => {
           value={tokenID}
           onChange={(e) => setTokenID(e.target.value)}
           placeholder="Token ID"
-          className="bg-transparent outline-none border border-teal-800 p-2 col-span-1"
+          className="bg-transparent outline-none border border-slate-800 p-2 col-span-1"
           required
         />
         <button 
           type="submit"
-          className="text-center rounded bg-teal-700 p-2 col-span-1"
+          className="text-center rounded bg-slate-700 p-2 col-span-1"
         >
           Get Custody Chain
         </button>

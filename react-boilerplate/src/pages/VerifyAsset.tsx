@@ -60,16 +60,16 @@ const VerifyAsset: React.FC = () => {
           value={tokenID}
           onChange={(e) => setTokenID(e.target.value)}
           placeholder="Enter Token ID"
-          className="w-full p-2 mb-4 bg-gray-200 placeholder:text-teal-700 text-teal-700 rounded outline-none"
+          className="w-full p-2 mb-4 bg-gray-200 placeholder:text-slate-700 text-slate-700 rounded outline-none"
         />
         <input
           type="text"
           value={accessToken}
           onChange={(e) => setAccessToken(e.target.value)}
           placeholder="Enter Access Token"
-          className="w-full p-2 mb-4 placeholder:text-teal-700 text-teal-700 bg-gray-200 rounded outline-none"
+          className="w-full p-2 mb-4 placeholder:text-slate-700 text-slate-700 bg-gray-200 rounded outline-none"
         />
-        <Button onClick={fetchAssetDetails} className="w-full bg-teal-600 text-white">Verify Token</Button>
+        <Button onClick={fetchAssetDetails} className="w-full bg-slate-600 text-white">Verify Token</Button>
       </div>
 
       {notification && <Notification message={notification.message} type={notification.type} />}
@@ -92,16 +92,16 @@ const VerifyAsset: React.FC = () => {
           value={tokenID}
           onChange={(e) => setTokenID(e.target.value)}
           placeholder="Enter Token ID"
-          className="w-full p-2 mb-4 bg-gray-200 placeholder:text-teal-700 text-teal-700 rounded outline-none"
+          className="w-full p-2 mb-4 bg-gray-200 placeholder:text-slate-700 text-slate-700 rounded outline-none"
         />
         <input
           type="text"
           value={newOwnerAddress}
           onChange={(e) => setNewOwnerAddress(e.target.value)}
           placeholder="Enter New Owner Address"
-          className="w-full p-2 mb-4 bg-gray-200 placeholder:text-teal-700 text-teal-700 rounded outline-none"
+          className="w-full p-2 mb-4 bg-gray-200 placeholder:text-slate-700 text-slate-700 rounded outline-none"
         />
-        <Button onClick={transferCustody} className="w-full bg-teal-600 text-white">Transfer</Button>
+        <Button onClick={transferCustody} className="w-full bg-slate-600 text-white">Transfer</Button>
       </div>
     </div>
   );

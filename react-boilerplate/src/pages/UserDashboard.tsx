@@ -103,11 +103,11 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, setNotification 
   };
 
   return (
-    <div className="container mx-auto max-w-4xl mt-8 p-4 border-2 border-teal-900 bg-teal-800 rounded shadow-md">
+    <div className="container mx-auto max-w-4xl mt-8 p-4 border-2 border-slate-900 bg-slate-800 rounded shadow-md">
       <h1 className="text-3xl font-bold text-center mb-4">User Dashboard</h1>
 
       {/* User Information */}
-      <div className="mb-6 p-4 bg-teal-600 rounded">
+      <div className="mb-6 p-4 bg-slate-600 rounded">
         <h2 className="text-2xl font-semibold">Welcome, User!</h2>
         <p className="text-xl">Account: {account}</p>
       </div>
@@ -132,7 +132,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ account, setNotification 
       <div className="text-center mt-6">
         <button
           onClick={openAddModal}
-          className="px-4 py-2 rounded bg-teal-600 text-white"
+          className="px-4 py-2 rounded bg-slate-600 text-white"
         >
           Add Asset
         </button>

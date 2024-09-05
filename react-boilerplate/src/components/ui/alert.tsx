@@ -8,7 +8,7 @@ interface AlertProps {
 
 export const Alert: React.FC<AlertProps> = ({ message, type }) => {
   const alertStyle =
-    type === 'error' ? 'bg-red-100 text-red-800' : 'bg-teal-100 text-teal-800';
+    type === 'error' ? 'bg-red-100 text-red-800' : 'bg-slate-100 text-slate-800';
 
   return (
     <div className={`flex items-center p-4 rounded ${alertStyle}`}>
