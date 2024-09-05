@@ -3,10 +3,8 @@ import { ArrowRight } from "lucide-react";
 import HowItWorks from "../components/HowItWorks";
 import FeatureOverview from "../components/FeatureOverview";
 import Modal from "../components/Modal";
-import GetStarted from "../components/GetStarted";
-import HeroImage from "../../public/hero-image.jpg";
+import HeroImage from "../../public/logo.png";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
 import AssetForm from "../components/AssetForm";
 import AssetDetails from "../components/AssetDetails"; // Import AssetDetails for showing verified asset details
 import VerifyAsset from "./VerifyAsset";
@@ -66,14 +64,14 @@ const LandingPage: React.FC = () => {
               <div className="flex space-x-4">
                 <button
                   onClick={openCreateModal}
-                  className="flex items-center rounded-full border border-white p-5 bg-teal-500 hover:border-teal-800 hover:text-teal-800 hover:bg-white"
+                  className="flex items-center rounded-full border border-white p-5 bg-slate-500 hover:border-slate-800 hover:text-slate-800 hover:bg-white"
                 >
                   Create Asset
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </button>
                 <button
                   onClick={openVerifyModal}
-                  className="flex items-center px-8 rounded-full hover:border-white hover:bg-teal-500 hover:text-white border-teal-900 p-5 bg-white text-teal-800"
+                  className="flex items-center px-8 rounded-full hover:border-white hover:bg-slate-500 hover:text-white border-slate-900 p-5 bg-white text-slate-800"
                 >
                   Verify Asset
                 </button>

@@ -10,7 +10,7 @@ export const Button: React.FC<ButtonProps> = ({ children, onClick, className }) 
   return (
     <button
       onClick={onClick}
-      className={`bg-teal-500 text-white py-2 px-4 rounded ${className}`}
+      className={`bg-slate-500 text-white py-2 px-4 rounded ${className}`}
     >
       {children}
     </button>

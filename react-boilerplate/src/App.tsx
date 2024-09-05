@@ -16,7 +16,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <div className="min-h-screen bg-teal-600 w-screen">
+      <div className="min-h-screen bg-slate-600 w-screen">
         <NavBar />
         {notification && (
           <Notification

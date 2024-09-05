@@ -28,7 +28,7 @@ const VerifyProduct = () => {
         />
         <button
           onClick={verifyProduct}
-          className="bg-teal-500 text-white p-2 rounded-lg hover:bg-teal-600"
+          className="bg-slate-500 text-white p-2 rounded-lg hover:bg-slate-600"
         >
           Verify Product
         </button>
