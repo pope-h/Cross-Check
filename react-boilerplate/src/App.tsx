@@ -6,7 +6,10 @@ import VerifyAsset from "./pages/VerifyAsset";
 import Notification from "./components/Notification";
 import UserDashboard from "./pages/UserDashboard";
 import NavBar from "./components/NavBar";
+import { configureWeb3Modal } from "./connection";
 // import UserDashboard from "./pages/UserDashboard";
+
+configureWeb3Modal();
 
 const App: React.FC = () => {
   const [notification, setNotification] = useState<{

@@ -122,9 +122,10 @@ export default function NavBar() {
         </AnimatePresence> */}
 
         <div className="flex gap-2">
-          <button className="border-none p-2 hidden lg:block shadow-md rounded-xl bg-slate-500 text-white hover:bg-slate-400">
+          {/* <button className="border-none p-2 hidden lg:block shadow-md rounded-xl bg-slate-500 text-white hover:bg-slate-400">
             CONNECT WALLET
-          </button>
+          </button> */}
+          <w3m-button />
           <Link to={"/dashboard"} className="my-auto">
             <CircleUser />
           </Link>
